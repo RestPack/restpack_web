@@ -1,5 +1,10 @@
 require "restpack_web/version"
+require 'restpack_web/app'
 
-module RestPack::Web
+require 'restpack_web/context'
 
-end
+require 'restpack_web/rack/domain'
+require 'restpack_web/rack/user'
+require 'restpack_web/rack/session'
+
+require 'restpack_web/rails/controller'

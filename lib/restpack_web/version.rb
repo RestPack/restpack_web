@@ -1,3 +1,5 @@
-module RestPack::Web
-  VERSION = "0.0.2"
+module RestPack
+  module Web
+    VERSION = "0.0.3"
+  end
 end

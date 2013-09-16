@@ -1,3 +1,5 @@
+require 'restpack_user_service'
+
 module RestPack::Web::Rack
   class User
     def initialize(app)
@@ -8,14 +10,20 @@ module RestPack::Web::Rack
       session = env["restpack.session"]
       user_id = session[:user_id]
 
-
-      p "----------------------"
       if user_id
-        p "TODO: GJ: inject user #{user_id}"
-       else
-        p "Anonymous RestPack User"
+        response = RestPack::User::Service::Commands::User::Get.run({
+          id: user_id,
+          application_id: env['restpack'][:application_id]
+        })
+
+        if response.status == :ok
+          user = response.result[:users][0]
+          env['restpack'][:user] = user
+        else
+          #TODO: GJ: better exceptions based on response status
+          raise "Error getting user"
+        end
       end
-      p "----------------------"
 
       @app.call(env)
     end

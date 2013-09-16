@@ -1,5 +1,4 @@
-require "restpack_web/version"
-require 'restpack_web/app'
+require 'restpack_web/version'
 
 require 'restpack_web/context'
 

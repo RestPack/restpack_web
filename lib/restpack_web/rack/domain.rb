@@ -19,6 +19,7 @@ module RestPack::Web::Rack
         env['restpack'] ||= {}
         env['restpack'][:domain] = domain
         env['restpack'][:application] = application
+        env['restpack'][:application_id] = application[:id]
 
         env['restpack.session.options'] ||= {}
         env['restpack.session.options'][:key] = 'restpack.session'

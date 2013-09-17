@@ -1,5 +1,6 @@
 require 'restpack_web/version'
 
+require 'restpack_web/configuration'
 require 'restpack_web/context'
 
 require 'restpack_web/rack/domain'

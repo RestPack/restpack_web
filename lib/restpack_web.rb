@@ -8,3 +8,4 @@ require 'restpack_web/rack/user'
 require 'restpack_web/rack/session'
 
 require 'restpack_web/rails/controller'
+require 'restpack_web/sinatra/app'

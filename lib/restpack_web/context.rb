@@ -12,8 +12,20 @@ module RestPack::Web
       end
     end
 
-    def is_authenticated?
+    def authenticated?
       !@user.nil?
+    end
+
+    def user_id
+      authenticated? ? @user[:id] : nil
+    end
+
+    def application_id
+      @application[:id]
+    end
+
+    def domain_id
+      @domain[:id]
     end
 
     def home_domain

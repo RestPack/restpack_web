@@ -1,6 +1,6 @@
 module RestPack::Web
   class Context
-    attr_accessor :domain, :application, :user
+    attr_accessor :domain, :application, :user, :account
 
     def initialize(env)
       restpack = env['restpack']
@@ -9,6 +9,7 @@ module RestPack::Web
         @domain = restpack[:domain]
         @application = restpack[:application]
         @user = restpack[:user]
+        @account = restpack[:account]
       end
     end
 
@@ -18,6 +19,10 @@ module RestPack::Web
 
     def user_id
       authenticated? ? @user[:id] : nil
+    end
+
+    def account_id
+      authenticated? ? @account[:id] : nil
     end
 
     def application_id

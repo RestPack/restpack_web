@@ -1,4 +1,5 @@
 require 'restpack_user_service'
+require 'restpack_account_service'
 
 module RestPack::Web::Rack
   class User
@@ -9,20 +10,22 @@ module RestPack::Web::Rack
     def call(env)
       session = env["restpack.session"]
       user_id = session[:user_id]
+      account_id = session[:account_id]
 
-      if user_id
+      if user_id && account_id
         response = RestPack::User::Service::Commands::User::Get.run({
           id: user_id,
           application_id: env['restpack'][:application_id]
         })
+        raise "Error getting user" unless response.success?
+        env['restpack'][:user] = response.result[:users][0]
 
-        if response.status == :ok
-          user = response.result[:users][0]
-          env['restpack'][:user] = user
-        else
-          #TODO: GJ: better exceptions based on response status
-          raise "Error getting user"
-        end
+        response = RestPack::Account::Service::Commands::Account::Get.run({
+          id: account_id,
+          application_id: env['restpack'][:application_id]
+        })
+        raise "Error getting account" unless response.success?
+        env['restpack'][:account] = response.result[:accounts][0]
       end
 
       @app.call(env)

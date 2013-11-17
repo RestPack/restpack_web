@@ -13,14 +13,15 @@ module RestPack::Web::Rack
       account_id = session[:account_id]
 
       if user_id && account_id
-        response = RestPack::User::Service::Commands::User::Get.run({
+        response = Commands::Users::User::Get.run({
           id: user_id,
           application_id: env['restpack'][:application_id]
         })
+
         raise "Error getting user" unless response.success?
         env['restpack'][:user] = response.result[:users][0]
 
-        response = RestPack::Account::Service::Commands::Account::Get.run({
+        response = Commands::Accounts::Account::Get.run({
           id: account_id,
           application_id: env['restpack'][:application_id]
         })

@@ -7,9 +7,9 @@ module RestPack::Web::Rack
     def call(env)
       identifier = Rack::Request.new(env).host
 
-      response = RestPack::Core::Service::Commands::Domain::ByIdentifier.run({
+      response = Commands::Core::Domain::ByIdentifier.run({
         identifier: identifier,
-        includes: 'applications'
+        include: 'applications'
       })
 
       if response.status == :ok
